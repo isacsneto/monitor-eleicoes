@@ -57,6 +57,8 @@ export function summarize(json) {
     pctSecoes: num(json.s.pstn ?? json.s.pst),
     eleitorado: num(json.e.te),
     comparecimento: num(json.e.c),
+    eleitoradoApurado: num(json.e.est), // eleitorado das seções já totalizadas
+    abstencao: num(json.e.a),
     votosValidos: num(json.v.vv),
     brancos: num(json.v.vb),
     nulos: num(json.v.tvn),

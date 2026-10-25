@@ -4,6 +4,7 @@
 //   GET /api/regions?ano=2026|2022|2018    variação por UF/região vs 1º turno
 //   GET /api/exterior                      exterior por país/cidade
 //   GET /api/caminho                       o que cada candidato precisa para vencer
+//   GET /api/abstencao                     apuração e abstenção por região vs 1º turno e 2022
 //   GET /healthz                           verificação de saúde (deploy)
 //   /api/chat/*                            ver chat.js
 import http from 'node:http';
@@ -13,7 +14,7 @@ import zlib from 'node:zlib';
 import crypto from 'node:crypto';
 import { PORT, PRODUCTION, PUBLIC_DIR } from './config.js';
 import { createLimiter, ipKey } from './ip.js';
-import { ANOS_HISTORICOS, caminho, exterior, historySeries, liveSeries, liveState, mercados, noticias, regions } from './api.js';
+import { ANOS_HISTORICOS, abstencao, caminho, exterior, historySeries, liveSeries, liveState, mercados, noticias, regions } from './api.js';
 import { flushChat, handleChat } from './chat.js';
 import { startNarrador } from './narrador.js';
 
@@ -97,6 +98,7 @@ const ROTAS_API = {
   '/api/timeline': () => timeline(),
   '/api/exterior': () => exterior(),
   '/api/caminho': () => caminho(),
+  '/api/abstencao': () => abstencao(),
   '/api/noticias': () => noticias(),
   '/api/mercados': () => mercados(),
 };

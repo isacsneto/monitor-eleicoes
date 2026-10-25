@@ -557,6 +557,80 @@ async function refreshExterior() {
 refreshExterior();
 setInterval(refreshExterior, 30000);
 
+// ---------- apuração e abstenção por região ----------
+let abst = null;
+const variacao = (v) => (v === null || v === undefined || Number.isNaN(v) ? '<span class="vazio">–</span>'
+  : `<span class="${v > 0.05 ? 'up' : v < -0.05 ? 'down' : ''}">${pp(v)}</span>`);
+const milhoes = (v) => `${(v / 1e6).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} mi`;
+const subiu = (v) => (v === null || v === undefined ? '' : v > 0.05 ? 'aumentou' : v < -0.05 ? 'diminuiu' : 'estável');
+
+function linhaAbst(r, cls = '') {
+  return `<tr class="${cls}"><td>${esc(r.nome)}</td>
+    <td><span class="mbar" aria-hidden="true"><i style="width:${Math.min(100, r.apurado)}%"></i></span>${pct(r.apurado, 1)}</td>
+    <td>${r.apurado2022 === null ? '–' : pct(r.apurado2022, 1)}</td>
+    <td>${r.taxa === null ? '<span class="vazio">–</span>' : pct(r.taxa, 1)}${r.aptos ? `<span class="sub">${NF.format(r.abst)}</span>` : ''}</td>
+    <td>${variacao(r.taxa !== null && r.t1 !== null ? r.taxa - r.t1 : null)}<span class="sub">1º turno: ${pct(r.t1 ?? r.t1Final, 1)}</span></td>
+    <td>${variacao(r.taxa !== null && r.a2022t2 !== null ? r.taxa - r.a2022t2 : null)}<span class="sub">2022: ${pct(r.a2022t2 ?? r.a2022t2Final, 1)}</span></td></tr>`;
+}
+
+function renderAbstencao() {
+  if (!abst) { $('abst-sub').textContent = 'Dados indisponíveis.'; return; }
+  const b = abst.br, a = abst;
+  const d1 = b.taxa !== null && b.t1 !== null ? b.taxa - b.t1 : null;
+  const d22 = b.taxa !== null && b.a2022t2 !== null ? b.taxa - b.a2022t2 : null;
+  const hora = (a.totalizacao ?? '').slice(11, 16);
+  $('abst-sub').textContent = a.parcial
+    ? `Quanto de cada região já foi apurado e quantos eleitores deixaram de votar nas seções apuradas, comparado com o 1º turno e com 2022.${hora ? ` Dados do TSE das ${hora}.` : ''}`
+    : 'Apuração concluída: abstenção final do 2º turno, comparada com o 1º turno e com 2022.';
+  $('abst-resumo').innerHTML = `
+    <div class="tile-stat"><div class="k">Seções apuradas</div><div class="v">${pct(b.apurado, 1)}</div>
+      <div class="d">${b.apurado2022 === null ? '' : `2022 no mesmo horário: ${pct(b.apurado2022, 1)}`}</div></div>
+    <div class="tile-stat"><div class="k">Abstenção${a.parcial ? ' até agora' : ''}</div><div class="v">${b.taxa === null ? '–' : pct(b.taxa, 1)}</div>
+      <div class="d">${b.aptos ? `${NF.format(b.abst)} eleitores${a.parcial ? ` · total estimado ~${milhoes(a.estimativaAbst)}` : ''}` : 'aguardando seções apuradas'}</div></div>
+    <div class="tile-stat"><div class="k">vs 1º turno 2026</div><div class="v">${d1 === null ? '–' : pp(d1)}</div>
+      <div class="d">${d1 === null ? `1º turno: ${pct(b.t1Final, 1)} (${milhoes(b.t1Abst)})` : `${subiu(d1)} · 1º turno: ${pct(b.t1, 1)}${a.parcial ? ' nas mesmas UFs' : ''}`}</div></div>
+    <div class="tile-stat"><div class="k">vs 2022 · 2º turno</div><div class="v">${d22 === null ? '–' : pp(d22)}</div>
+      <div class="d">${d22 === null ? `2022: ${pct(b.a2022t2Final, 1)}` : `${subiu(d22)} · 2022: ${pct(b.a2022t2, 1)}${a.parcial ? ' nas mesmas UFs' : ''}`}</div></div>`;
+
+  const head = `<thead><tr><th>Região</th><th>Apurado</th><th>2022<span class="sub">mesmo horário</span></th><th>Abstenção<span class="sub">seções apuradas</span></th>
+    <th>vs 1º turno</th><th>vs 2022<span class="sub">2º turno</span></th></tr></thead>`;
+  $('tabela-abst').innerHTML = `${head}<tbody>${a.regioes.map((r) => linhaAbst(r)).join('')}${linhaAbst(b, 'total')}</tbody>`;
+  $('tabela-abst-ufs').innerHTML = `${head.replace('Região', 'UF')}<tbody>${a.ufs.map((r) => linhaAbst({ ...r, nome: r.id === 'zz' ? 'Exterior' : r.nome })).join('')}</tbody>`;
+
+  // Totais de cada turno; o 2º turno de 2026 usa a estimativa enquanto a apuração não termina.
+  const hist = [];
+  for (const ano of [2018, 2022]) {
+    const h = a.historico[ano];
+    if (h) hist.push({ nome: `${ano} · 1º turno`, ...h.t1 }, { nome: `${ano} · 2º turno`, ...h.t2 });
+  }
+  hist.push({ nome: '2026 · 1º turno', ...a.t1_2026 });
+  hist.push(a.parcial
+    ? { nome: '2026 · 2º turno', abst: a.estimativaAbst, aptos: a.eleitorado, estimado: true }
+    : { nome: '2026 · 2º turno', abst: b.abst, aptos: b.aptos });
+  $('tabela-abst-hist').innerHTML = `<thead><tr><th>Turno</th><th>Abstenções</th><th>Eleitorado</th><th>Taxa</th><th>vs turno anterior</th></tr></thead><tbody>
+    ${hist.map((h, i) => {
+      const taxa = h.aptos ? (100 * h.abst) / h.aptos : null;
+      const ant = hist[i - 1];
+      const dif = ant && ant.aptos && taxa !== null ? taxa - (100 * ant.abst) / ant.aptos : null;
+      return `<tr><td>${esc(h.nome)}${h.estimado ? '<span class="sub">estimativa, apuração parcial</span>' : ''}</td>
+        <td>${h.estimado ? '~' : ''}${NF.format(h.abst)}</td><td>${NF.format(h.aptos)}</td><td>${pct(taxa, 2)}</td>
+        <td>${variacao(dif)}${ant ? `<span class="sub">${h.abst >= ant.abst ? '+' : '−'}${NF.format(Math.abs(h.abst - ant.abst))}</span>` : ''}</td></tr>`;
+    }).join('')}</tbody>`;
+
+  $('abst-nota').innerHTML = 'Abstenção = eleitores aptos que não compareceram. Durante a apuração, ela só é conhecida nas seções já totalizadas, e as regiões apuram em ritmos diferentes. '
+    + 'Por isso, as comparações usam o 1º turno e 2022 <b>com o mesmo peso de cada UF</b> no que já foi apurado; no fim da apuração, viram as taxas finais. '
+    + 'O total estimado aplica, nas UFs ainda sem seções apuradas, a taxa do 1º turno corrigida pela variação observada. '
+    + '“2022 no mesmo horário” é o % de seções apuradas no 2º turno de 2022 no mesmo horário de Brasília. O TSE não publica a evolução da apuração do 1º turno de 2026, por isso essa comparação é só com 2022. '
+    + 'Fonte: TSE (resultados ao vivo e dados abertos: detalhe_votacao_munzona 2018 e 2022).';
+}
+
+async function refreshAbstencao() {
+  try { abst = await getJson('/api/abstencao'); } catch (e) { if (String(e.message).startsWith('404')) abst = null; }
+  renderAbstencao();
+}
+refreshAbstencao();
+setInterval(refreshAbstencao, 30000);
+
 // ---------- o que cada um precisa para vencer ----------
 let cam = null;
 const ORDEM_REG = ['SE', 'NE', 'S', 'NCO', 'EX'];

@@ -207,6 +207,15 @@ h2 { font-size: 17px; margin: 0 0 4px; }
 .tabela.ext .vazio { color: var(--muted); }
 @media (max-width: 860px) { .ext-resumo { grid-template-columns: 1fr 1fr; } }
 
+.tabela.abst .sub { display: block; font-size: 11px; color: var(--muted); font-weight: 400; }
+.tabela.abst .up::before { content: "▲ "; font-size: 9px; }
+.tabela.abst .down::before { content: "▼ "; font-size: 9px; }
+.tabela.abst .vazio { color: var(--muted); }
+.tabela.abst tr.total td { font-weight: 700; border-top: 2px solid var(--border); }
+.mbar { display: inline-block; width: 70px; height: 8px; border-radius: 4px; background: var(--neutral); overflow: hidden; vertical-align: middle; margin-right: 6px; }
+.mbar i { display: block; height: 100%; background: var(--ink-2); border-radius: 4px; }
+@media (max-width: 520px) { .mbar { width: 40px; } }
+
 .cam-texto { margin: 12px 0; font-size: 14px; }
 .cam-texto p { margin: 0 0 10px; }
 .cam-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 12px; }

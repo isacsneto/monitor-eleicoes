@@ -10,6 +10,7 @@ Painel web da apuração do 2º turno presidencial de 2026 com dados oficiais do
 - **Linha do tempo:** evolução da esquerda e da direita conforme a apuração avança (votos válidos, chance de vitória ou projeção final), com 2026 sobreposto a 2022 e 2018. O eixo pode ser % de seções apuradas ou horário.
 - **Regiões:** onde cada candidato cresceu ou caiu em relação ao 1º turno, num mapa de UFs e em tabelas por região e por UF, para 2026, 2022 e 2018.
 
+- **Apuração e abstenção por região:** % de seções apuradas em cada região comparado com o 2º turno de 2022 no mesmo horário, e a abstenção nas seções já apuradas, com a variação em relação ao 1º turno de 2026 e a 2022 (mesmo peso de cada UF), por região e por UF. Inclui uma estimativa do total de abstenções e o histórico de cada turno desde 2018.
 - **O que cada um precisa para vencer:** média ponderada das pesquisas do 2º turno, com mais peso para as recentes. Mostra quanto o candidato atrás precisa crescer em cada região e o mínimo que o líder precisa manter. Durante a apuração, mostra também que % dos votos que faltam cada um precisa.
 - **Exterior por país:** boletins de urna de cada seção, publicados pelo TSE desde o fechamento das urnas no exterior. Compara 1º e 2º turno nas mesmas seções e coloca 2018, 2022 e 2026 lado a lado, com votos ganhos e perdidos por país e cidade.
 - **Chat ao vivo:** mensagens em tempo real (SSE), filtro contra palavrões, discurso de ódio, ameaças e links, e uma enquete informal "em quem você votou" (🔴 Lula, 🔵 Flávio, ⚪ Branco/Nulo).
@@ -34,7 +35,7 @@ Para publicar (Fly.io recomendado), veja **[DEPLOY.md](DEPLOY.md)**.
 | Arquivo | Papel |
 |---|---|
 | `server/index.js` | HTTP: arquivos estáticos, rotas, cabeçalhos de segurança, gzip/ETag, cache, limites |
-| `server/api.js` | cálculos das rotas (ao vivo, linha do tempo, regiões, exterior, caminho, notícias) |
+| `server/api.js` | cálculos das rotas (ao vivo, linha do tempo, regiões, abstenção, exterior, caminho, notícias) |
 | `server/collector.js` · `exterior.js` · `noticias.js` · `mercados.js` | coletores: TSE, boletins do exterior, notícias, mercados de previsão |
 | `server/narrador.js` | narrador automático do chat |
 | `server/chat.js` · `moderacao.js` | chat (SSE), enquete, moderação automática e manual |
@@ -73,6 +74,7 @@ node scripts/calibrate.js 0 0.01 0.015 0.02   # erro da projeção por marco, pa
 
 | Arquivo | Conteúdo | Como gerar |
 |---|---|---|
+| `data/history/abstencao.json` | abstenção por UF e turno, 2018 e 2022 | `python -I scripts/build_abstencao.py` (depois de `build_history.py`) |
 | `data/history/exterior.json` | exterior por cidade e país, 2018 e 2022, dois turnos | `python -I scripts/build_exterior.py` |
 | `data/polls/2026-t2.json` | pesquisas do 2º turno 2026 (nacional e regiões), com fontes | coletadas manualmente de notícias e da Wikipedia |
 | `data/ref/exterior-3220.json`, `data/live/exterior-3221.json` | boletins de urna do exterior, 1º e 2º turno 2026 | o coletor gera |

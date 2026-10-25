@@ -415,3 +415,106 @@ export function mercados() {
   const m = readJson(path.join(LIVE, 'mercados.json'));
   return m && { ...m, historico: thin(m.historico ?? [], 400) };
 }
+
+// Apuração e abstenção por região, comparadas com o 1º turno de 2026 e com 2022/2018.
+// Com apuração parcial, a abstenção só é conhecida nas seções totalizadas; para comparar
+// com outras eleições, as taxas delas são reponderadas pelo eleitorado já apurado em cada UF.
+const ABST_FILE = path.join(HISTORY, 'abstencao.json');
+
+function minutoDoDia(iso) {
+  const m = /T(\d\d):(\d\d)/.exec(iso ?? '');
+  return m ? Number(m[1]) * 60 + Number(m[2]) : null;
+}
+
+// % de seções apuradas por UF numa eleição histórica, no mesmo horário (Brasília).
+function apuradoNoHorario(h, minuto) {
+  if (!h || minuto === null) return null;
+  let ponto = null;
+  for (const e of h.timeline) {
+    if (minutoDoDia(e.t) > minuto) break;
+    ponto = e;
+  }
+  return Object.fromEntries([...UFS, 'br'].map((uf) => [uf, ponto?.uf?.[uf]?.[0] ?? 0]));
+}
+
+export function abstencao() {
+  const latest = readJson(path.join(LIVE, 'latest.json'));
+  const t1 = readJson(T1_FILE);
+  const hist = readJson(ABST_FILE);
+  if (!latest || !t1) return null;
+  const taxa = (abst, aptos) => (aptos ? (100 * abst) / aptos : null);
+  // Arquivos antigos (antes de guardar est/a) caem no cálculo pelo eleitorado e comparecimento.
+  const de26 = (s) => {
+    const aptos = s.eleitoradoApurado ?? (s.pctSecoes >= 100 ? s.eleitorado : 0);
+    const abst = s.abstencao ?? Math.max(0, aptos - s.comparecimento);
+    return { aptos, abst };
+  };
+  const t2 = Object.fromEntries([...UFS, 'br'].map((uf) => [uf, de26(latest[uf])]));
+  const p1 = Object.fromEntries([...UFS, 'br'].map((uf) => [uf, de26(t1[uf])]));
+  const minuto = minutoDoDia(tseTime(latest.br.totalizacao));
+  const comp = {};
+  for (const ano of ANOS_HISTORICOS) {
+    comp[ano] = { abst: hist?.[ano], apurado: apuradoNoHorario(readJson(path.join(HISTORY, `${ano}.json`)), minuto), secoes: readJson(path.join(HISTORY, `${ano}.json`))?.secoes };
+  }
+
+  // Taxa de outra eleição com a mesma composição de UFs do que já foi apurado agora.
+  const reponderada = (ufs, ref) => {
+    let num = 0, den = 0;
+    for (const uf of ufs) {
+      const r = ref?.[uf];
+      if (!r?.aptos || !t2[uf].aptos) continue;
+      num += (r.abst / r.aptos) * t2[uf].aptos;
+      den += t2[uf].aptos;
+    }
+    return den ? (100 * num) / den : null;
+  };
+  const linha = (ufs, id, nomeR) => {
+    const soma = (src, k) => ufs.reduce((s, uf) => s + (src[uf]?.[k] ?? 0), 0);
+    // O arquivo do Brasil às vezes está à frente dos arquivos por UF: o total usa o próprio br.
+    const fonte = id === 'br' ? [latest.br] : ufs.map((uf) => latest[uf]);
+    const secoes = fonte.reduce((s, x) => s + x.secoes, 0);
+    const tot = fonte.reduce((s, x) => s + x.secoesTot, 0);
+    const apurado = (ano) => {
+      const c = comp[ano];
+      if (!c.apurado || !c.secoes) return null;
+      const den = ufs.reduce((s, uf) => s + (c.secoes[uf] ?? 0), 0);
+      return den ? (100 * ufs.reduce((s, uf) => s + c.apurado[uf], 0)) / den : null;
+    };
+    return {
+      id, nome: nomeR,
+      apurado: secoes ? (100 * tot) / secoes : 0,
+      // 2018 fica de fora: a divulgação foi embargada até as 19h e os horários são estimados.
+      apurado2022: apurado(2022),
+      ...(id === 'br' ? t2.br : { abst: soma(t2, 'abst'), aptos: soma(t2, 'aptos') }),
+      taxa: id === 'br' ? taxa(t2.br.abst, t2.br.aptos) : taxa(soma(t2, 'abst'), soma(t2, 'aptos')),
+      // Bases comparáveis (mesma composição de UFs) e finais (resultado completo de cada turno).
+      t1: reponderada(id === 'br' ? UFS : ufs, p1),
+      t1Final: taxa(soma(p1, 'abst'), soma(p1, 'aptos')),
+      t1Abst: soma(p1, 'abst'),
+      ...Object.fromEntries(ANOS_HISTORICOS.flatMap((ano) => ['t1', 't2'].map((t) => {
+        const ref = comp[ano].abst?.[t];
+        return [[`a${ano}${t}`, reponderada(ufs, ref)], [`a${ano}${t}Final`, ref ? taxa(soma(ref, 'abst'), soma(ref, 'aptos')) : null]];
+      }).flat())),
+    };
+  };
+  const br = linha(UFS, 'br', 'Brasil');
+  // Estimativa do total: UFs apuradas usam a própria taxa; as demais, o 1º turno + a variação média.
+  const delta = br.taxa !== null && br.t1 !== null ? br.taxa - br.t1 : 0;
+  let estimativa = 0;
+  for (const uf of UFS) {
+    const r = t2[uf].aptos ? t2[uf].abst / t2[uf].aptos : (p1[uf].aptos ? p1[uf].abst / p1[uf].aptos + delta / 100 : 0);
+    estimativa += r * latest[uf].eleitorado;
+  }
+  return {
+    totalizacao: latest.br.totalizacao,
+    parcial: latest.br.pctSecoes < 100,
+    pctSecoes: latest.br.pctSecoes,
+    eleitorado: latest.br.eleitorado,
+    estimativaAbst: Math.round(estimativa),
+    br,
+    regioes: Object.entries(REGIOES).map(([id, r]) => linha(r.ufs, id, r.nome)),
+    ufs: UFS.map((uf) => ({ ...linha([uf], uf, uf.toUpperCase()), regiao: Object.keys(REGIOES).find((r) => REGIOES[r].ufs.includes(uf)) })),
+    historico: Object.fromEntries(ANOS_HISTORICOS.map((ano) => [ano, comp[ano].abst ? { t1: comp[ano].abst.t1.br, t2: comp[ano].abst.t2.br } : null])),
+    t1_2026: p1.br,
+  };
+}
