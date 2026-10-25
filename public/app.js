@@ -597,6 +597,40 @@ function renderAbstencao() {
   $('tabela-abst').innerHTML = `${head}<tbody>${a.regioes.map((r) => linhaAbst(r)).join('')}${linhaAbst(b, 'total')}</tbody>`;
   $('tabela-abst-ufs').innerHTML = `${head.replace('Região', 'UF')}<tbody>${a.ufs.map((r) => linhaAbst({ ...r, nome: r.id === 'zz' ? 'Exterior' : r.nome })).join('')}</tbody>`;
 
+  // Esquerda × direita por região: 2º turno até agora contra o 1º turno e contra 2022.
+  const cn = a.candidatos;
+  const L = curto(cn.left), R = curto(cn.right), L22 = curto(cn.left2022), R22 = curto(cn.right2022);
+  const par = (v, l, r) => (v ? `<span class="par"><span class="sw" style="background:var(--left)"></span>${esc(l)} ${pct(v.left, 1)}</span>
+    <span class="par"><span class="sw" style="background:var(--right)"></span>${esc(r)} ${pct(v.right, 1)}</span>` : '<span class="vazio">–</span>');
+  // No 2º turno os dois sobem em relação ao 1º (herdam votos): o que importa é quem subiu mais.
+  const vsT1 = (v) => {
+    if (!v.t2 || !v.t1) return '<span class="vazio">–</span>';
+    const dl = v.t2.left - v.t1.left, dr = v.t2.right - v.t1.right;
+    const quem = Math.abs(dl - dr) < 0.05 ? 'empate' : dl > dr ? `${esc(L)} cresceu mais` : `${esc(R)} cresceu mais`;
+    return `<span class="par"><span class="sw" style="background:var(--left)"></span>${variacao(dl)}</span>
+      <span class="par"><span class="sw" style="background:var(--right)"></span>${variacao(dr)}</span><span class="sub">${quem}</span>`;
+  };
+  // Contra o 2º turno de 2022 a disputa é a dois: o que um ganha, o outro perde.
+  const vs22 = (v) => {
+    if (!v.t2 || !v.a2022t2) return '<span class="vazio">–</span>';
+    const d = v.t2.left - v.a2022t2.left;
+    if (Math.abs(d) < 0.05) return 'estável';
+    const lado = d > 0 ? 'left' : 'right';
+    return `<span class="par"><span class="sw" style="background:var(--${lado})"></span><b>${d > 0 ? 'esquerda' : 'direita'}</b> <span class="up">${pp(Math.abs(d))}</span></span>
+      <span class="sub">${d > 0 ? esc(R) : esc(L)} cai ${pp(Math.abs(d)).slice(1)}</span>`;
+  };
+  const headVotos = (first) => `<thead><tr><th>${first}</th><th>2º turno 2026<span class="sub">${a.parcial ? 'até agora' : 'resultado'}</span></th>
+    <th>1º turno 2026<span class="sub">votos válidos</span></th><th>vs 1º turno<span class="sub">quem subiu mais</span></th>
+    <th>2º turno 2022</th><th>vs 2022<span class="sub">quem cresce</span></th><th>1º turno 2022</th></tr></thead>`;
+  const linhaVotos = (r, cls = '') => `<tr class="${cls}"><td>${esc(r.nome)}</td>
+    <td>${r.votos.t2 ? `<span class="minibar" aria-hidden="true"><i class="l" style="width:${r.votos.t2.left}%"></i><i class="r" style="width:${r.votos.t2.right}%"></i></span>` : ''}${par(r.votos.t2, L, R)}</td>
+    <td>${par(r.votos.t1, L, R)}</td><td>${vsT1(r.votos)}</td>
+    <td>${par(r.votos.a2022t2, L22, R22)}</td><td>${vs22(r.votos)}</td><td>${par(r.votos.a2022t1, L22, R22)}</td></tr>`;
+  $('votos-sub').textContent = `Fatia dos votos válidos de ${L} (esquerda) e ${R} (direita), comparada com o 1º turno e com 2022 (${L22} × ${R22}).`
+    + (a.parcial ? ' Com a apuração parcial, o 1º turno e 2022 entram com o mesmo peso de cada UF no que já foi apurado.' : '');
+  $('tabela-votos').innerHTML = `${headVotos('Região')}<tbody>${a.regioes.map((r) => linhaVotos(r)).join('')}${linhaVotos(b, 'total')}</tbody>`;
+  $('tabela-votos-ufs').innerHTML = `${headVotos('UF')}<tbody>${a.ufs.map((r) => linhaVotos({ ...r, nome: r.id === 'zz' ? 'Exterior' : r.nome })).join('')}</tbody>`;
+
   // Totais de cada turno; o 2º turno de 2026 usa a estimativa enquanto a apuração não termina.
   const hist = [];
   for (const ano of [2018, 2022]) {

@@ -452,6 +452,31 @@ export function abstencao() {
   const t2 = Object.fromEntries([...UFS, 'br'].map((uf) => [uf, de26(latest[uf])]));
   const p1 = Object.fromEntries([...UFS, 'br'].map((uf) => [uf, de26(t1[uf])]));
   const minuto = minutoDoDia(tseTime(latest.br.totalizacao));
+  // Esquerda × direita (PT × PL): 2º turno até agora, 1º turno de 2026 e 2022. Com apuração
+  // parcial, as outras eleições entram com o mesmo peso de cada UF nos votos já apurados.
+  const parcial = latest.br.pctSecoes < 100;
+  const votosDe = (s) => ({ left: s.cands[LEFT_2026]?.votos ?? 0, right: s.cands[RIGHT_2026]?.votos ?? 0, vv: s.votosValidos });
+  const v2 = Object.fromEntries(UFS.map((uf) => [uf, votosDe(latest[uf])]));
+  const v1 = Object.fromEntries(UFS.map((uf) => [uf, votosDe(t1[uf])]));
+  const h22 = readJson(path.join(HISTORY, '2022.json'));
+  const fatias = (x) => (x.vv ? { left: (100 * x.left) / x.vv, right: (100 * x.right) / x.vv } : null);
+  const votosRef = (ufs, ref) => {
+    const acc = { left: 0, right: 0, vv: 0 };
+    for (const uf of ufs) {
+      const x = ref?.[uf];
+      if (!x?.vv) continue;
+      const k = parcial ? v2[uf].vv / x.vv : 1;
+      acc.left += x.left * k; acc.right += x.right * k; acc.vv += x.vv * k;
+    }
+    return fatias(acc);
+  };
+  const votosLinha = (ufs, id) => ({
+    t2: fatias(id === 'br' ? votosDe(latest.br) : ufs.reduce((a, uf) => ({ left: a.left + v2[uf].left, right: a.right + v2[uf].right, vv: a.vv + v2[uf].vv }), { left: 0, right: 0, vv: 0 })),
+    t1: votosRef(ufs, v1),
+    a2022t1: votosRef(ufs, h22?.t1),
+    a2022t2: votosRef(ufs, h22?.final),
+  });
+
   const comp = {};
   for (const ano of ANOS_HISTORICOS) {
     comp[ano] = { abst: hist?.[ano], apurado: apuradoNoHorario(readJson(path.join(HISTORY, `${ano}.json`)), minuto), secoes: readJson(path.join(HISTORY, `${ano}.json`))?.secoes };
@@ -491,6 +516,7 @@ export function abstencao() {
       t1: reponderada(id === 'br' ? UFS : ufs, p1),
       t1Final: taxa(soma(p1, 'abst'), soma(p1, 'aptos')),
       t1Abst: soma(p1, 'abst'),
+      votos: votosLinha(id === 'br' ? UFS : ufs, id),
       ...Object.fromEntries(ANOS_HISTORICOS.flatMap((ano) => ['t1', 't2'].map((t) => {
         const ref = comp[ano].abst?.[t];
         return [[`a${ano}${t}`, reponderada(ufs, ref)], [`a${ano}${t}Final`, ref ? taxa(soma(ref, 'abst'), soma(ref, 'aptos')) : null]];
@@ -516,5 +542,9 @@ export function abstencao() {
     ufs: UFS.map((uf) => ({ ...linha([uf], uf, uf.toUpperCase()), regiao: Object.keys(REGIOES).find((r) => REGIOES[r].ufs.includes(uf)) })),
     historico: Object.fromEntries(ANOS_HISTORICOS.map((ano) => [ano, comp[ano].abst ? { t1: comp[ano].abst.t1.br, t2: comp[ano].abst.t2.br } : null])),
     t1_2026: p1.br,
+    candidatos: {
+      left: latest.br.cands[LEFT_2026]?.nome, right: latest.br.cands[RIGHT_2026]?.nome,
+      left2022: h22?.left?.nome, right2022: h22?.right?.nome,
+    },
   };
 }

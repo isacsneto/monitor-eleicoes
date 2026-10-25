@@ -215,6 +215,10 @@ h2 { font-size: 17px; margin: 0 0 4px; }
 .mbar { display: inline-block; width: 70px; height: 8px; border-radius: 4px; background: var(--neutral); overflow: hidden; vertical-align: middle; margin-right: 6px; }
 .mbar i { display: block; height: 100%; background: var(--ink-2); border-radius: 4px; }
 @media (max-width: 520px) { .mbar { width: 40px; } }
+.abst-h3 { font-size: 16px; margin: 22px 0 2px; }
+.tabela.votos td { vertical-align: top; }
+.tabela.votos .par { display: block; white-space: nowrap; }
+.tabela.votos .minibar { display: flex; width: 100%; min-width: 90px; margin: 3px 0 4px; }
 
 .cam-texto { margin: 12px 0; font-size: 14px; }
 .cam-texto p { margin: 0 0 10px; }
