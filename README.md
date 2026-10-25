@@ -2,6 +2,10 @@
 
 Painel web da apuração do 2º turno presidencial de 2026 com dados oficiais do TSE, comparado com os 2º turnos de 2022 e 2018.
 
+**No ar:** https://painel-apuracao-2026.fly.dev
+
+![Demonstração do painel: placar ao vivo, linha do tempo, o que cada candidato precisa, mercados de previsão, mapa por estado, exterior por país, tema escuro e versão para celular](docs/demo.gif)
+
 - **Ao vivo:** votos, % de seções apuradas e chance de vitória de cada candidato.
 - **Linha do tempo:** evolução da esquerda e da direita conforme a apuração avança (votos válidos, chance de vitória ou projeção final), com 2026 sobreposto a 2022 e 2018. O eixo pode ser % de seções apuradas ou horário.
 - **Regiões:** onde cada candidato cresceu ou caiu em relação ao 1º turno, num mapa de UFs e em tabelas por região e por UF, para 2026, 2022 e 2018.
