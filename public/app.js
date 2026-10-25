@@ -420,10 +420,27 @@ const minibar = (r) => {
 };
 const votosCel = (r, side) => (r.vv ? `${NF.format(r[side])}<span class="sub">${pct((100 * r[side]) / r.vv, 1)}</span>` : '<span class="vazio">–</span>');
 
+// Só entram na tabela países/cidades que já têm dado na visão atual.
+function temDado(r) {
+  if (extUi.modo === 'anos') return ['2018', '2022', '2026'].some((a) => r[`a${a}`]?.t2.vv > 0);
+  if (extUi.ano === '2026') return r.a2026.t2.vv > 0;
+  const a = r[`a${extUi.ano}`];
+  return a.t1.vv + a.t2.vv > 0;
+}
+
 function extRows() {
   const q = extUi.busca.trim().toLowerCase();
-  if (!q) return ext.paises;
-  return ext.paises.filter((p) => p.nome.toLowerCase().includes(q) || p.cidades.some((c) => c.nome.toLowerCase().includes(q)));
+  const comDado = ext.paises.filter(temDado);
+  if (!q) return comDado;
+  return comDado.filter((p) => p.nome.toLowerCase().includes(q) || p.cidades.some((c) => temDado(c) && c.nome.toLowerCase().includes(q)));
+}
+
+// Linha final discreta: quantos países ainda não têm nenhum boletim nesta visão.
+function linhaAguardando(colunas) {
+  const n = ext.paises.filter((p) => !temDado(p)).length;
+  if (!n) return '';
+  const quando = extUi.modo === 'turnos' && extUi.ano === '2026' ? 'aguardando os primeiros boletins do 2º turno' : 'sem dados nesta visão';
+  return `<tr class="aguardando"><td colspan="${colunas}">+ ${NF.format(n)} ${n === 1 ? 'país' : 'países'} ${quando} — aparecem aqui assim que chegar o primeiro boletim</td></tr>`;
 }
 
 function renderExterior() {
@@ -483,10 +500,11 @@ function renderExterior() {
       <th><span class="sw" style="background:var(--right)"></span>${esc(R)} 1º</th><th>2º</th><th>Δ votos</th>
       <th>2º turno (${esc(L)} × ${esc(R)})</th></tr></thead><tbody>
       ${linha(totalRow, '', '<b>Total exterior</b>')}
-      ${rows.map((p) => paisLinhas(p, linha)).join('')}</tbody>`;
+      ${rows.map((p) => paisLinhas(p, linha)).join('')}
+      ${linhaAguardando(ano === '2026' ? 9 : 8)}</tbody>`;
     $('ext-nota').textContent = ano === '2026'
-      ? `* 2026: o 1º turno é somado só nas seções que já têm boletim do 2º turno, para comparar as mesmas urnas. "Δ votos" = votos no 2º turno − votos no 1º turno. Clique num país para ver as cidades. ${ext.notas ?? ''}`
-      : `"Δ votos" = votos no 2º turno − votos no 1º turno. Clique num país para ver as cidades. ${ext.notas ?? ''}`;
+      ? `* 2026: o 1º turno é somado só nas seções que já têm boletim do 2º turno, para comparar as mesmas urnas. "Δ votos" = votos no 2º turno − votos no 1º turno. Clique num país para ver as cidades.`
+      : `"Δ votos" = votos no 2º turno − votos no 1º turno. Clique num país para ver as cidades.`;
   } else {
     const anos = ['2018', '2022', '2026'].filter((a) => ext.candidatos[a]);
     const linha = (r, cls, label) => {
@@ -503,8 +521,12 @@ function renderExterior() {
     tabela.innerHTML = `<thead><tr><th>País</th>${anos.map((a) => `<th>${a} · 2º turno<span class="sub">${esc(curto(ext.candidatos[a].left.nome))} × ${esc(curto(ext.candidatos[a].right.nome))}</span></th>`).join('')}
       <th>Δ esquerda<span class="sub">2022→2026</span></th><th>Δ votos esq.<span class="sub">2022→2026</span></th><th>Δ votos dir.<span class="sub">2022→2026</span></th></tr></thead><tbody>
       ${linha(totalRow, '', '<b>Total exterior</b>')}
-      ${rows.map((p) => paisLinhas(p, linha)).join('')}</tbody>`;
-    $('ext-nota').textContent = `Barras: fatia da esquerda na disputa a dois do 2º turno. Esquerda: Haddad (2018) e Lula (2022, 2026); direita: Jair Bolsonaro (2018, 2022) e Flávio Bolsonaro (2026). Com a apuração de 2026 parcial, as diferenças de votos ainda vão mudar. ${ext.notas ?? ''}`;
+      ${rows.map((p) => paisLinhas(p, linha)).join('')}
+      ${linhaAguardando(anos.length + 4)}</tbody>`;
+    $('ext-nota').textContent = `Barras: fatia da esquerda na disputa a dois do 2º turno. Esquerda: Haddad (2018) e Lula (2022, 2026); direita: Jair Bolsonaro (2018, 2022) e Flávio Bolsonaro (2026). Com a apuração de 2026 parcial, as diferenças de votos ainda vão mudar.`;
+  }
+  if (ext.notas) {
+    $('ext-nota').insertAdjacentHTML('beforeend', `<details><summary>Como os dados do exterior foram montados</summary><p>${esc(ext.notas)}</p></details>`);
   }
   tabela.querySelectorAll('tr.pais').forEach((tr) => tr.addEventListener('click', () => {
     const n = tr.dataset.pais;
@@ -515,11 +537,12 @@ function renderExterior() {
 
 function paisLinhas(p, linha) {
   const q = extUi.busca.trim().toLowerCase();
-  const aberto = extUi.abertos.has(p.nome) || (q && p.cidades.some((c) => c.nome.toLowerCase().includes(q)));
-  const multi = p.cidades.length > 1 || (p.cidades[0] && p.cidades[0].nome !== p.nome);
+  const cidades = p.cidades.filter(temDado); // cidades sem boletim também ficam ocultas
+  const aberto = extUi.abertos.has(p.nome) || (q && cidades.some((c) => c.nome.toLowerCase().includes(q)));
+  const multi = cidades.length > 1 || (cidades[0] && cidades[0].nome !== p.nome);
   const label = `<span class="seta">${multi ? (aberto ? '▾' : '▸') : ''}</span>${esc(p.nome)}${p.mapeado ? '' : '<span class="sub">país não mapeado</span>'}`;
   let html = linha(p, multi ? 'pais' : '', label);
-  if (aberto && multi) html += p.cidades.map((c) => linha(c, 'cidade', esc(nome(c.nome)))).join('');
+  if (aberto && multi) html += cidades.map((c) => linha(c, 'cidade', esc(nome(c.nome)))).join('');
   return html;
 }
 

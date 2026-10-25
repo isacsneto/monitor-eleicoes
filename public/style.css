@@ -513,3 +513,6 @@ body.placar-on .placar-fixo { transform: none; }
   .placar-fixo { gap: 8px; font-size: 12.5px; padding: 7px 10px; }
   .pf-prob { width: 100%; text-align: center; font-size: 12px; }
 }
+
+/* Exterior: linha final com os países que ainda não têm boletim */
+.tabela.ext tr.aguardando td { text-align: center !important; color: var(--muted); font-size: 12px; padding: 12px; position: static; }
