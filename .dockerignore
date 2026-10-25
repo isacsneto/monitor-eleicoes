@@ -1,0 +1,9 @@
+.git
+node_modules
+data/raw
+data/live
+data/sim
+data/chat
+scripts
+*.log
+*.md

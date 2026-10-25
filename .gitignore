@@ -1,0 +1,7 @@
+node_modules/
+data/live/
+data/raw/
+*.log
+data/sim/
+data/chat/
+.admin-token

@@ -1,0 +1,17 @@
+{
+  "name": "monitor-eleicoes",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Painel de apuração do 2º turno presidencial 2026 com dados oficiais do TSE",
+  "scripts": {
+    "start": "node server/index.js",
+    "collect": "node server/collector.js",
+    "serve": "node server/index.js --no-collect",
+    "test": "node scripts/test_moderacao.js",
+    "seed": "node scripts/seed.js",
+    "simulate": "node scripts/simulate.js 80 0.6",
+    "calibrate": "node scripts/calibrate.js 0 0.01 0.015 0.02"
+  },
+  "engines": { "node": ">=20" }
+}

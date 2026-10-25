@@ -1,0 +1,1601 @@
+{
+  "coletado_em": "2026-10-25T16:30:00-03:00",
+  "notas": "Coleta feita em 25/10/2026 (dia do 2º turno) via buscas na web; nenhum PDF de instituto foi lido diretamente, exceto a referência ao PDF Meio/Ideia via Wikipedia. Fontes primárias/jornalísticas lidas: Exame, CNN Brasil, Metrópoles, SBT News, Gazeta do Povo, Gazeta Web, Bloomberg Línea, Mixvale, Poder360, Blog Cenário, Jornal Folha do Estado. Ondas sem 'fonte' jornalística específica vêm apenas da tabela da Wikipedia (Opinion polling for the 2026 Brazilian presidential election), que traz só Lula, Flávio e um valor combinado de brancos/nulos/indecisos (campo 'branco_nulo_indecisos'); branco_nulo e indecisos separados ficam null nesses casos. Campo 'regioes_base' indica a base do recorte regional: 'total' (votos totais) ou 'validos' (votos válidos). Datafolha 24/10 e 22/10 e CNT/MDA só tiveram recorte regional publicado em votos válidos (pares somam 100) — NÃO são votos totais. AtlasIntel 18-23/10: a Bloomberg Línea publicou só o percentual do líder em cada região (sem o adversário e sem dizer a base). PoderData 23-24/10: texto traz só alguns números regionais (gráficos em imagem). Quaest 24/10 (véspera) não teve recorte regional encontrado em texto; Quaest 10-13/10 tem regiões tiradas da comparação 'rodada anterior' publicada pelo Metrópoles em 21/10. Inconsistências: Datafolha 20-22/10 amostra 2.520 (CNN/Wikipedia) vs 2.154 (Metrópoles/Blog Cenário, provável confusão com Quaest); válidos 50/50 (CNN) vs 50,54/49,46 (cálculo do Metrópoles). CNT/MDA amostra 2.032 (Exame/Poder360) vs 2.002 (Folha do Estado). Quaest 24/10 contratante 'Grupo Globo' (CNN) / 'TV Globo' (SBT). AtlasIntel contratante: Bloomberg (Bloomberg Línea) vs 'próprio instituto' (Gazeta do Povo). Alfa: campo 19-22/10 (Wikipedia) vs 18-22/10 (Poder360). Palver: Poder360 lista campo 16-20/10 com registro BR-04612/2026, divergente da Wikipedia (18-20 e 22-24) — registro não atribuído. Não foi encontrada pesquisa Ipec nem Paraná Pesquisas de 2º turno nacional no período. AtlasIntel 3-8/10 (Lula 45,7 x Flávio 51,1, n=5.026, Wikipedia) foi excluída por ter campo iniciado antes do 1º turno. Contratante do Datafolha 24/10 não confirmado no texto lido (rodada de 22/10 foi Folha/Globo).",
+  "pesquisas": [
+    {
+      "instituto": "Datafolha",
+      "contratante": null,
+      "registro": "BR-09540/2026",
+      "campo_inicio": "2026-10-23",
+      "campo_fim": "2026-10-24",
+      "divulgacao": "2026-10-24",
+      "amostra": 4050,
+      "margem": 2.0,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 47,
+          "flavio": 48,
+          "branco_nulo": 3,
+          "indecisos": 2,
+          "branco_nulo_indecisos": 5
+        },
+        "validos": {
+          "lula": 49,
+          "flavio": 51
+        }
+      },
+      "regioes": {
+        "SE": {
+          "lula": 45,
+          "flavio": 55
+        },
+        "NE": {
+          "lula": 67,
+          "flavio": 33
+        },
+        "S": {
+          "lula": 35,
+          "flavio": 65
+        },
+        "NCO": null
+      },
+      "regioes_base": "validos",
+      "fonte": [
+        "https://exame.com/brasil/pesquisa-datafolha-flavio-bolsonaro-tem-51-e-lula-49-dos-votos-validos/",
+        "https://www.gazetaweb.com/noticias/eleicoes/datafolha-flavio-bolsonaro-tem-51-e-lula-49-dos-votos-validos-no-2-turno-944822",
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Quaest",
+      "contratante": "TV Globo",
+      "registro": "BR-09158/2026",
+      "campo_inicio": "2026-10-23",
+      "campo_fim": "2026-10-24",
+      "divulgacao": "2026-10-24",
+      "amostra": 3702,
+      "margem": 2.0,
+      "metodo": "presencial",
+      "nacional": {
+        "total": {
+          "lula": 45,
+          "flavio": 46,
+          "branco_nulo": 8,
+          "indecisos": 1,
+          "branco_nulo_indecisos": 9
+        },
+        "validos": {
+          "lula": 49,
+          "flavio": 51
+        }
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://www.cnnbrasil.com.br/eleicoes/quaest-flavio-tem-51-dos-votos-validos-lula-49/",
+        "https://sbtnews.sbt.com.br/noticia/politica/quaest-flavio-tem-51-e-lula-49-na-vespera-do-2-turno",
+        "https://www.metropoles.com/brasil/ultima-pesquisa-quaest-flavio-bolsonaro-lula",
+        "https://www.cartacapital.com.br/politica/os-detalhes-da-ultima-pesquisa-quaest-sobre-lula-x-flavio-bolsonaro-no-2o-turno/",
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "PoderData",
+      "contratante": "PoderData (recursos próprios); parceria de divulgação Aya",
+      "registro": "BR-02828/2026",
+      "campo_inicio": "2026-10-23",
+      "campo_fim": "2026-10-24",
+      "divulgacao": "2026-10-25",
+      "amostra": 4000,
+      "margem": 1.6,
+      "metodo": "telefone (URA)",
+      "nacional": {
+        "total": {
+          "lula": 48,
+          "flavio": 49,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 4
+        },
+        "validos": {
+          "lula": 49,
+          "flavio": 51
+        }
+      },
+      "regioes": {
+        "SE": {
+          "lula": 44,
+          "flavio": 52
+        },
+        "NE": {
+          "lula": 62,
+          "flavio": null
+        },
+        "S": {
+          "lula": null,
+          "flavio": 62
+        },
+        "N": null,
+        "CO": {
+          "lula": null,
+          "flavio": 58
+        }
+      },
+      "regioes_base": "total",
+      "fonte": [
+        "https://www.poder360.com.br/poderdata/flavio-tem-51-e-lula-tem-49-dos-votos-validos-diz-poderdata-aya-2/",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/",
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Nexus",
+      "contratante": "BTG Pactual",
+      "registro": "BR-08234/2026",
+      "campo_inicio": "2026-10-23",
+      "campo_fim": "2026-10-24",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": 2.2,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46,
+          "flavio": 47,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 7
+        },
+        "validos": {
+          "lula": 49.5,
+          "flavio": 50.5
+        }
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "Futura",
+      "contratante": null,
+      "registro": "BR-09726/2026",
+      "campo_inicio": "2026-10-23",
+      "campo_fim": "2026-10-24",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": 2.2,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 47.9,
+          "flavio": 48.2,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 3.9
+        },
+        "validos": {
+          "lula": 49.9,
+          "flavio": 50.1
+        }
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "Gerp",
+      "contratante": null,
+      "registro": "BR-09327/2026",
+      "campo_inicio": "2026-10-22",
+      "campo_fim": "2026-10-24",
+      "divulgacao": null,
+      "amostra": 2400,
+      "margem": 2.0,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46,
+          "flavio": 49,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 4
+        },
+        "validos": {
+          "lula": 48,
+          "flavio": 52
+        }
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "Palver",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-22",
+      "campo_fim": "2026-10-24",
+      "divulgacao": null,
+      "amostra": 5000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 49,
+          "flavio": 50,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 1
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Colectta",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-23",
+      "campo_fim": "2026-10-23",
+      "divulgacao": null,
+      "amostra": 3000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46.5,
+          "flavio": 46,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 7.5
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "MDA",
+      "contratante": "CNT",
+      "registro": "BR-02136/2026",
+      "campo_inicio": "2026-10-21",
+      "campo_fim": "2026-10-23",
+      "divulgacao": "2026-10-24",
+      "amostra": 2032,
+      "margem": 2.2,
+      "metodo": "presencial",
+      "nacional": {
+        "total": {
+          "lula": 45.0,
+          "flavio": 46.3,
+          "branco_nulo": 5.8,
+          "indecisos": 2.9,
+          "branco_nulo_indecisos": 8.7
+        },
+        "validos": {
+          "lula": 49.3,
+          "flavio": 50.7
+        }
+      },
+      "regioes": {
+        "SE": null,
+        "NE": {
+          "lula": 67,
+          "flavio": 33
+        },
+        "S": {
+          "lula": null,
+          "flavio": 61
+        },
+        "NCO": null
+      },
+      "regioes_base": "validos",
+      "fonte": [
+        "https://exame.com/brasil/pesquisa-para-presidente-cnt-mda-flavio-bolsonaro-tem-507-e-lula-493-dos-votos-valdios/",
+        "https://www.jornalfolhadoestado.com/politica/cnt-mda-pesquisa-mostra-lula-e-flavio-em-uma-disputada-apertada-neste-segundo-turno/",
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Instituto França",
+      "contratante": null,
+      "registro": "BR-04863/2026",
+      "campo_inicio": "2026-10-21",
+      "campo_fim": "2026-10-23",
+      "divulgacao": null,
+      "amostra": 1537,
+      "margem": 2.5,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 43.1,
+          "flavio": 45.1,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 11.3
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "Veritá",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-19",
+      "campo_fim": "2026-10-23",
+      "divulgacao": null,
+      "amostra": 15554,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 47.8,
+          "flavio": 49.8,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 2.4
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "AtlasIntel",
+      "contratante": "Bloomberg (segundo Bloomberg Línea; Gazeta do Povo diz 'contratada pelo próprio instituto')",
+      "registro": "BR-06380/2026",
+      "campo_inicio": "2026-10-18",
+      "campo_fim": "2026-10-23",
+      "divulgacao": "2026-10-24",
+      "amostra": 4990,
+      "margem": 1.0,
+      "metodo": "online",
+      "nacional": {
+        "total": {
+          "lula": 48.4,
+          "flavio": 49.9,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 1.7
+        },
+        "validos": {
+          "lula": 49.2,
+          "flavio": 50.8
+        }
+      },
+      "regioes": {
+        "SE": {
+          "lula": null,
+          "flavio": 53.1
+        },
+        "NE": {
+          "lula": 62.3,
+          "flavio": null
+        },
+        "S": {
+          "lula": null,
+          "flavio": 60.3
+        },
+        "N": {
+          "lula": null,
+          "flavio": 57.6
+        },
+        "CO": {
+          "lula": null,
+          "flavio": 62.1
+        }
+      },
+      "regioes_base": "nao_informada (provavelmente total)",
+      "fonte": [
+        "https://www.bloomberglinea.com.br/brasil/flavio-bolsonaro-tem-508-dos-votos-validos-contra-492-de-lula-aponta-atlasintel/",
+        "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-outubro-2026-vespera-segundo-turno/",
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Datafolha",
+      "contratante": "Folha de S.Paulo/TV Globo",
+      "registro": "BR-09709/2026",
+      "campo_inicio": "2026-10-20",
+      "campo_fim": "2026-10-22",
+      "divulgacao": "2026-10-22",
+      "amostra": 2520,
+      "margem": 2.0,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46,
+          "flavio": 47,
+          "branco_nulo": 5,
+          "indecisos": 2,
+          "branco_nulo_indecisos": 7
+        },
+        "validos": {
+          "lula": 50,
+          "flavio": 50
+        }
+      },
+      "regioes": {
+        "SE": {
+          "lula": 44,
+          "flavio": 56
+        },
+        "NE": {
+          "lula": 68,
+          "flavio": 32
+        },
+        "S": {
+          "lula": 36,
+          "flavio": 64
+        },
+        "NCO": {
+          "lula": 44,
+          "flavio": 56
+        }
+      },
+      "regioes_base": "validos",
+      "fonte": [
+        "https://www.cnnbrasil.com.br/eleicoes/datafolha-flavio-e-lula-empatam-em-50-de-votos-validos-no-2o-turno/",
+        "https://www.metropoles.com/brasil/datafolha-flavio-bolsonaro-lula-22-10",
+        "https://blogcenario.com.br/2026/10/23/datafolha-lula-tem-68-dos-votos-validos-no-nordeste-flavio-lidera-nas-demais-regioes",
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Ipespe",
+      "contratante": "Abrapel",
+      "registro": "BR-04350/2026",
+      "campo_inicio": "2026-10-20",
+      "campo_fim": "2026-10-22",
+      "divulgacao": null,
+      "amostra": 1500,
+      "margem": 2.6,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 47,
+          "flavio": 48,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 5
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "Vox Brasil",
+      "contratante": null,
+      "registro": "BR-03259/2026",
+      "campo_inicio": "2026-10-20",
+      "campo_fim": "2026-10-22",
+      "divulgacao": null,
+      "amostra": 2100,
+      "margem": 2.15,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45.4,
+          "flavio": 44.3,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 10.3
+        },
+        "validos": {
+          "lula": 50.6,
+          "flavio": 49.4
+        }
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "Real Time Big Data",
+      "contratante": "próprio instituto",
+      "registro": "BR-09670/2026",
+      "campo_inicio": "2026-10-19",
+      "campo_fim": "2026-10-22",
+      "divulgacao": "2026-10-23",
+      "amostra": 2000,
+      "margem": 2.0,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45,
+          "flavio": 49,
+          "branco_nulo": 5,
+          "indecisos": 1,
+          "branco_nulo_indecisos": 6
+        },
+        "validos": {
+          "lula": 48,
+          "flavio": 52
+        }
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-presidente-outubro-2026-segundo-turno-2/",
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Alfa Inteligência",
+      "contratante": null,
+      "registro": "BR-08496/2026",
+      "campo_inicio": "2026-10-19",
+      "campo_fim": "2026-10-22",
+      "divulgacao": null,
+      "amostra": 2700,
+      "margem": 1.9,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46,
+          "flavio": 49.9,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 4.1
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "Veritá",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-18",
+      "campo_fim": "2026-10-22",
+      "divulgacao": null,
+      "amostra": 15554,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 47.5,
+          "flavio": 50.2,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 2.3
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Indexa",
+      "contratante": "Broadcast (Estadão)",
+      "registro": "BR-04629/2026",
+      "campo_inicio": "2026-10-20",
+      "campo_fim": "2026-10-21",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": 2.2,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 44.1,
+          "flavio": 45.2,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 10.7
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "PoderData",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-19",
+      "campo_fim": "2026-10-21",
+      "divulgacao": "2026-10-22",
+      "amostra": 4000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 48,
+          "flavio": 49,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 4
+        },
+        "validos": {
+          "lula": 49,
+          "flavio": 51
+        }
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "DataTrends",
+      "contratante": null,
+      "registro": "BR-03365/2026",
+      "campo_inicio": "2026-10-19",
+      "campo_fim": "2026-10-21",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": 2.19,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46,
+          "flavio": 50,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 4
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "Gerp",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-19",
+      "campo_fim": "2026-10-21",
+      "divulgacao": null,
+      "amostra": 2400,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45,
+          "flavio": 50,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 5
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Futura",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-19",
+      "campo_fim": "2026-10-20",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46.8,
+          "flavio": 48.9,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 4.3
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Palver",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-18",
+      "campo_fim": "2026-10-20",
+      "divulgacao": null,
+      "amostra": 5000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 48,
+          "flavio": 50,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 1
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Quaest",
+      "contratante": null,
+      "registro": "BR-08535/2026",
+      "campo_inicio": "2026-10-17",
+      "campo_fim": "2026-10-20",
+      "divulgacao": "2026-10-21",
+      "amostra": 2154,
+      "margem": 2.0,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 44,
+          "flavio": 45,
+          "branco_nulo": 9,
+          "indecisos": 2,
+          "branco_nulo_indecisos": 11
+        },
+        "validos": null
+      },
+      "regioes": {
+        "SE": {
+          "lula": 39,
+          "flavio": 48
+        },
+        "NE": {
+          "lula": 61,
+          "flavio": 31
+        },
+        "S": {
+          "lula": 28,
+          "flavio": 61
+        },
+        "NCO": {
+          "lula": 41,
+          "flavio": 49
+        }
+      },
+      "regioes_base": "total",
+      "fonte": [
+        "https://www.metropoles.com/brasil/lula-tem-vantagem-no-nordeste-flavio-lidera-nas-outras-regioes-diz-quaest",
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Real Time Big Data",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-15",
+      "campo_fim": "2026-10-19",
+      "divulgacao": "2026-10-20",
+      "amostra": 2000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45,
+          "flavio": 48,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 7
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Veritá",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-15",
+      "campo_fim": "2026-10-19",
+      "divulgacao": null,
+      "amostra": 15554,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 48.2,
+          "flavio": 49.7,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 2.1
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Ideia",
+      "contratante": "Meio",
+      "registro": "BR-08251/2026",
+      "campo_inicio": "2026-10-15",
+      "campo_fim": "2026-10-19",
+      "divulgacao": null,
+      "amostra": 1500,
+      "margem": 2.5,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46,
+          "flavio": 48,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 6
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://www.canalmeio.com.br/wp-content/uploads/2026/10/Pesquisa-Meio_Ideia-Outubro.pdf",
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "Alfa Inteligência",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-15",
+      "campo_fim": "2026-10-19",
+      "divulgacao": null,
+      "amostra": 2700,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45.9,
+          "flavio": 48.8,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 5.3
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "PoderData",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-16",
+      "campo_fim": "2026-10-18",
+      "divulgacao": null,
+      "amostra": 3000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46,
+          "flavio": 49,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 5
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Nexus",
+      "contratante": "BTG Pactual",
+      "registro": null,
+      "campo_inicio": "2026-10-16",
+      "campo_fim": "2026-10-18",
+      "divulgacao": null,
+      "amostra": 2002,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45.9,
+          "flavio": 46.5,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 7.6
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "AtlasIntel",
+      "contratante": "próprio instituto (Gazeta do Povo); divulgado como AtlasIntel/Bloomberg",
+      "registro": "BR-02418/2026",
+      "campo_inicio": "2026-10-13",
+      "campo_fim": "2026-10-18",
+      "divulgacao": "2026-10-19",
+      "amostra": 4998,
+      "margem": 1.0,
+      "metodo": "online",
+      "nacional": {
+        "total": {
+          "lula": 47.6,
+          "flavio": 49.8,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 2.6
+        },
+        "validos": {
+          "lula": 48.9,
+          "flavio": 51.1
+        }
+      },
+      "regioes": {
+        "SE": {
+          "lula": 42.4,
+          "flavio": 55.4
+        },
+        "NE": {
+          "lula": 62.8,
+          "flavio": 35.3
+        },
+        "S": {
+          "lula": 36.1,
+          "flavio": 59.5
+        },
+        "N": null,
+        "CO": {
+          "lula": 41.0,
+          "flavio": 56.5
+        }
+      },
+      "regioes_base": "total",
+      "fonte": [
+        "https://www.mixvale.com.br/2026/10/19/pesquisa-atlasintel-mostra-flavio-bolsonaro-com-498-e-lula-com-476-no-segundo-turno-nas-eleicoes-2026/",
+        "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-outubro-2026-segundo-turno-2/",
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Futura",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-16",
+      "campo_fim": "2026-10-17",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 47.5,
+          "flavio": 48.3,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 4.3
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "DataTrends",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-15",
+      "campo_fim": "2026-10-17",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46,
+          "flavio": 49,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 5
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Vox Brasil",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-15",
+      "campo_fim": "2026-10-17",
+      "divulgacao": null,
+      "amostra": 2100,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46.4,
+          "flavio": 44.6,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 8.9
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Gerp",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-14",
+      "campo_fim": "2026-10-16",
+      "divulgacao": null,
+      "amostra": 2400,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45,
+          "flavio": 50,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 5
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Veritá",
+      "contratante": null,
+      "registro": "BR-01107/2026",
+      "campo_inicio": "2026-10-12",
+      "campo_fim": "2026-10-16",
+      "divulgacao": null,
+      "amostra": 15554,
+      "margem": 1.0,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 47.7,
+          "flavio": 49.7,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 2.6
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.poder360.com.br/poder-pesquisas/saiba-como-estao-lula-e-flavio-nas-ultimas-18-pesquisas-divulgadas/"
+      ]
+    },
+    {
+      "instituto": "Futura",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-14",
+      "campo_fim": "2026-10-15",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 47.5,
+          "flavio": 49,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 3.6
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Datafolha",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-13",
+      "campo_fim": "2026-10-15",
+      "divulgacao": "2026-10-15",
+      "amostra": 2520,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45,
+          "flavio": 47,
+          "branco_nulo": 6,
+          "indecisos": 2,
+          "branco_nulo_indecisos": 8
+        },
+        "validos": {
+          "lula": 49,
+          "flavio": 51
+        }
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.metropoles.com/brasil/datafolha-flavio-bolsonaro-lula-22-10"
+      ]
+    },
+    {
+      "instituto": "PoderData",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-13",
+      "campo_fim": "2026-10-15",
+      "divulgacao": null,
+      "amostra": 3000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 47,
+          "flavio": 47,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 6
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "MDA",
+      "contratante": "CNT",
+      "registro": null,
+      "campo_inicio": "2026-10-13",
+      "campo_fim": "2026-10-15",
+      "divulgacao": null,
+      "amostra": 2014,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45.9,
+          "flavio": 46.8,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 7.3
+        },
+        "validos": {
+          "lula": 49.5,
+          "flavio": 50.5
+        }
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://exame.com/brasil/pesquisa-para-presidente-cnt-mda-flavio-bolsonaro-tem-507-e-lula-493-dos-votos-valdios/"
+      ]
+    },
+    {
+      "instituto": "Ipespe",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-13",
+      "campo_fim": "2026-10-15",
+      "divulgacao": null,
+      "amostra": 1500,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46,
+          "flavio": 48,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 6
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Indexa",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-13",
+      "campo_fim": "2026-10-14",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 42,
+          "flavio": 44,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 4
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Quaest",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-10",
+      "campo_fim": "2026-10-13",
+      "divulgacao": "2026-10-14",
+      "amostra": 2154,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 44,
+          "flavio": 46,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 10
+        },
+        "validos": null
+      },
+      "regioes": {
+        "SE": {
+          "lula": 38,
+          "flavio": 49
+        },
+        "NE": {
+          "lula": 61,
+          "flavio": 32
+        },
+        "S": {
+          "lula": 30,
+          "flavio": 61
+        },
+        "NCO": {
+          "lula": 40,
+          "flavio": 48
+        }
+      },
+      "regioes_base": "total",
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.metropoles.com/brasil/lula-tem-vantagem-no-nordeste-flavio-lidera-nas-outras-regioes-diz-quaest"
+      ]
+    },
+    {
+      "instituto": "Palver",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-10",
+      "campo_fim": "2026-10-13",
+      "divulgacao": null,
+      "amostra": 5000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 49,
+          "flavio": 50,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 1
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "PoderData",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-10",
+      "campo_fim": "2026-10-12",
+      "divulgacao": null,
+      "amostra": 3000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46,
+          "flavio": 48,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 7
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Nexus",
+      "contratante": "BTG Pactual",
+      "registro": null,
+      "campo_inicio": "2026-10-10",
+      "campo_fim": "2026-10-12",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45,
+          "flavio": 48,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 7
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Gerp",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-08",
+      "campo_fim": "2026-10-12",
+      "divulgacao": null,
+      "amostra": 2400,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 44,
+          "flavio": 53,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 3
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Futura",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-07",
+      "campo_fim": "2026-10-10",
+      "divulgacao": null,
+      "amostra": 2000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 46.6,
+          "flavio": 50,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 3.4
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Ipespe",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-06",
+      "campo_fim": "2026-10-08",
+      "divulgacao": "2026-10-10",
+      "amostra": 1500,
+      "margem": 2.6,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 44,
+          "flavio": 49,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 7
+        },
+        "validos": {
+          "lula": 47.3,
+          "flavio": 52.7
+        }
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+        "https://www.cnnbrasil.com.br/eleicoes/ipespe-flavio-tem-527-dos-votos-validos-no-2o-turno-lula-473/"
+      ]
+    },
+    {
+      "instituto": "Datafolha",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-06",
+      "campo_fim": "2026-10-07",
+      "divulgacao": null,
+      "amostra": 2520,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 45,
+          "flavio": 49,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 6
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "PoderData",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-05",
+      "campo_fim": "2026-10-07",
+      "divulgacao": null,
+      "amostra": 3000,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 44,
+          "flavio": 49,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 7
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    },
+    {
+      "instituto": "Vox Brasil",
+      "contratante": null,
+      "registro": null,
+      "campo_inicio": "2026-10-05",
+      "campo_fim": "2026-10-07",
+      "divulgacao": null,
+      "amostra": 2100,
+      "margem": null,
+      "metodo": null,
+      "nacional": {
+        "total": {
+          "lula": 44.2,
+          "flavio": 42.7,
+          "branco_nulo": null,
+          "indecisos": null,
+          "branco_nulo_indecisos": 13.1
+        },
+        "validos": null
+      },
+      "regioes": null,
+      "regioes_base": null,
+      "fonte": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election"
+      ]
+    }
+  ]
+}
