@@ -169,11 +169,18 @@ export function liveState() {
     st: latest[uf].secoesTot, left: latest[uf].cands[LEFT_2026].votos, right: latest[uf].cands[RIGHT_2026].votos,
   }]));
   const br = latest.br;
-  const cand = (n) => ({ ...br.cands[n], t1Pct: 100 * t1.br[n === LEFT_2026 ? 'left' : 'right'] / t1.br.vv });
+  const definido = br.md === 'e';
+  const liderN = br.cands[LEFT_2026].votos >= br.cands[RIGHT_2026].votos ? LEFT_2026 : RIGHT_2026;
+  const cand = (n) => ({
+    ...br.cands[n],
+    eleito: br.cands[n].eleito || (definido && n === liderN),
+    t1Pct: 100 * t1.br[n === LEFT_2026 ? 'left' : 'right'] / t1.br.vv,
+  });
   return {
     pronto: true,
     status,
     totalizacao: br.totalizacao,
+    definido,
     pctSecoes: br.pctSecoes,
     secoes: br.secoes,
     secoesTot: br.secoesTot,

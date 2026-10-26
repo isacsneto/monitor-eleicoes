@@ -2,7 +2,13 @@
 
 Painel web da apuração do 2º turno presidencial de 2026 com dados oficiais do TSE, comparado com os 2º turnos de 2022 e 2018.
 
-**No ar:** https://painel-apuracao-2026.fly.dev
+**Resultado:** Lula (PT) foi eleito com 51,78% dos votos válidos (64.229.885 votos), contra 48,22% de Flávio Bolsonaro (PL), com 99,96% das seções apuradas.
+
+O painel ficou no ar no Fly.io durante a noite da apuração (25/10/2026) e foi desligado depois do resultado. A série completa coletada naquela noite está em `data/seed/`, então dá para ver o painel como ele terminou rodando localmente:
+
+```bash
+npm run serve      # sem o coletor: mostra o resultado final em http://localhost:3000
+```
 
 ![Demonstração do painel: placar ao vivo, linha do tempo, o que cada candidato precisa, mercados de previsão, mapa por estado, exterior por país, tema escuro e versão para celular](docs/demo.gif)
 

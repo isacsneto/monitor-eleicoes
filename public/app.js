@@ -63,10 +63,11 @@ function renderLive() {
   const travado = idade === null || idade > 120;
   st.className = 'status ' + (s?.erro || travado || liveVelho ? 'erro' : 'vivo');
   const fim = live.pctSecoes >= 100;
+  const eleito = live.left.eleito ? live.left : live.right.eleito ? live.right : null;
   $('status-txt').textContent = liveVelho ? 'sem conexão com o painel — tentando de novo…'
     : s?.erro ? 'TSE instável — mostrando os últimos dados recebidos'
-    : travado ? 'dados atrasados — aguardando nova atualização do TSE'
-    : `${fim ? 'Apuração encerrada' : 'Ao vivo'} · TSE atualizou ${live.totalizacao ?? '–'} · consultado há ${Math.max(0, idade)}s`;
+    : travado ? (eleito ? `${curto(eleito.nome)} eleito · TSE atualizou ${live.totalizacao ?? '–'}` : 'dados atrasados — aguardando nova atualização do TSE')
+    : `${eleito ? `${curto(eleito.nome)} eleito · ` : ''}${fim ? 'Apuração encerrada' : 'Ao vivo'} · TSE atualizou ${live.totalizacao ?? '–'} · consultado há ${Math.max(0, idade)}s`;
 
   $('pct-secoes').textContent = pct(live.pctSecoes);
   $('secoes-det').textContent = `(${NF.format(live.secoesTot)} de ${NF.format(live.secoes)} seções · ${NF.format(live.votosValidos)} votos válidos)`;
@@ -918,10 +919,11 @@ function renderPlacarFixo() {
   if (!el || !live?.pronto) return;
   const L = esc(curto(live.left.nome)), R = esc(curto(live.right.nome));
   const pl = 100 * live.modelo.pLeft;
+  const eleito = live.left.eleito ? L : live.right.eleito ? R : null;
   el.innerHTML = `<span class="pf-apur"><i></i>${pct(live.pctSecoes, 1)} apurado</span>
     <span class="pf-cand l">${L} <b>${pct(live.left.pct, 1)}</b></span>
     <span class="pf-cand r">${R} <b>${pct(live.right.pct, 1)}</b></span>
-    <span class="pf-prob">chance: ${L} ${pct(pl, 0)} · ${R} ${pct(100 - pl, 0)}</span>`;
+    <span class="pf-prob">${eleito ? `🏁 <b>${eleito} eleito</b>` : `chance: ${L} ${pct(pl, 0)} · ${R} ${pct(100 - pl, 0)}`}</span>`;
 }
 
 // O placar fixo aparece quando os cartões dos candidatos saem da tela.

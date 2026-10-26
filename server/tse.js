@@ -52,6 +52,8 @@ export function summarize(json) {
     abr: json.cdabr,
     totalizacao: json.dg && json.hg ? `${json.dg} ${json.hg}` : null,
     idg: json.idg,
+    // "e" = resultado matematicamente definido (eleito), antes mesmo de o TSE marcar o candidato.
+    md: json.md ?? null,
     secoes: num(json.s.ts),
     secoesTot: num(json.s.st),
     pctSecoes: num(json.s.pstn ?? json.s.pst),
