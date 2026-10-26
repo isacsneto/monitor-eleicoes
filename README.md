@@ -1,105 +1,108 @@
-# Monitor Eleições 2026: Presidente, 2º turno
+# Monitor Eleições 2026: President, runoff
 
-Painel web da apuração do 2º turno presidencial de 2026 com dados oficiais do TSE, comparado com os 2º turnos de 2022 e 2018.
+**English** · [Português](README.pt-BR.md)
 
-**Resultado:** Lula (PT) foi eleito com 51,78% dos votos válidos (64.229.885 votos), contra 48,22% de Flávio Bolsonaro (PL), com 99,96% das seções apuradas.
+Live web dashboard for the vote count of Brazil's 2026 presidential runoff, built on official data from the TSE (Brazil's Superior Electoral Court) and compared with the 2022 and 2018 runoffs.
 
-O painel ficou no ar no Fly.io durante a noite da apuração (25/10/2026) e foi desligado depois do resultado. A série completa coletada naquela noite está em `data/seed/`, então dá para ver o painel como ele terminou rodando localmente:
+**Result:** Lula (PT) was elected with 51.78% of the valid votes (64,229,885 votes), against 48.22% for Flávio Bolsonaro (PL), with 99.96% of polling stations counted.
 
-```bash
-npm run serve      # sem o coletor: mostra o resultado final em http://localhost:3000
-```
-
-![Demonstração do painel: placar ao vivo, linha do tempo, o que cada candidato precisa, mercados de previsão, mapa por estado, exterior por país, tema escuro e versão para celular](docs/demo.gif)
-
-- **Ao vivo:** votos, % de seções apuradas e chance de vitória de cada candidato.
-- **Linha do tempo:** evolução da esquerda e da direita conforme a apuração avança (votos válidos, chance de vitória ou projeção final), com 2026 sobreposto a 2022 e 2018. O eixo pode ser % de seções apuradas ou horário.
-- **Regiões:** onde cada candidato cresceu ou caiu em relação ao 1º turno, num mapa de UFs e em tabelas por região e por UF, para 2026, 2022 e 2018.
-
-- **Apuração, votos e abstenção por região:** % de seções apuradas em cada região comparado com o 2º turno de 2022 no mesmo horário; esquerda × direita em cada região contra o 1º turno e 2022 (quem cresce e quem cai); e a abstenção nas seções já apuradas, com a variação em relação ao 1º turno de 2026 e a 2022 (mesmo peso de cada UF), por região e por UF. Inclui uma estimativa do total de abstenções e o histórico de cada turno desde 2018.
-- **O que cada um precisa para vencer:** média ponderada das pesquisas do 2º turno, com mais peso para as recentes. Mostra quanto o candidato atrás precisa crescer em cada região e o mínimo que o líder precisa manter. Durante a apuração, mostra também que % dos votos que faltam cada um precisa.
-- **Exterior por país:** boletins de urna de cada seção, publicados pelo TSE desde o fechamento das urnas no exterior. Compara 1º e 2º turno nas mesmas seções e coloca 2018, 2022 e 2026 lado a lado, com votos ganhos e perdidos por país e cidade.
-- **Chat ao vivo:** mensagens em tempo real (SSE), filtro contra palavrões, discurso de ódio, ameaças e links, e uma enquete informal "em quem você votou" (🔴 Lula, 🔵 Flávio, ⚪ Branco/Nulo).
-- **Últimas notícias:** manchetes de g1, Folha, Estadão, Poder360, Agência Brasil e Google Notícias, filtradas pela eleição e ordenadas por relevância. Ficam numa coluna à esquerda no desktop e numa seção compacta no celular.
-- **Narrador automático:** um robô identificado (🤖, selo "automático") posta no chat os marcos da apuração (comparando com 2022), viradas no país e nos estados grandes, mudanças fortes na chance de vitória, o resultado oficial e notícias de destaque. Ele não vota na enquete. Para desligar: `NARRADOR=off`.
-- **Mercados de previsão:** cotações públicas da Kalshi (`KXBRPRES-26`) e da Polymarket (`brazil-presidential-election`), normalizadas para a disputa a dois e comparadas com o modelo do painel ao longo da noite. Onde o provedor bloqueia esses domínios (alguns no Brasil), aparecem como indisponíveis; o painel não contorna bloqueios.
-- **Responsivo:** no celular, os candidatos aparecem lado a lado, o gráfico e o mapa respondem ao toque, as tabelas rolam de lado com a primeira coluna fixa, e o chat e as notícias se adaptam.
-
-Não tem dependências: basta ter Node 20 ou mais recente.
+The dashboard ran on Fly.io on counting night (Oct 25, 2026) and was shut down after the result. The full series collected that night is in `data/seed/`, so you can see the dashboard as it ended by running it locally:
 
 ```bash
-npm start          # coletor + servidor em http://localhost:3000
-npm run collect    # só o coletor
-npm run serve      # só o servidor (lê o que o coletor gravou)
-npm test           # testes do filtro do chat
+npm run serve      # without the collector: shows the final result at http://localhost:3000
 ```
 
-Para publicar (Fly.io recomendado), veja **[DEPLOY.md](DEPLOY.md)**.
+![Dashboard demo: live scoreboard, timeline, what each candidate needs, prediction markets, state map, overseas votes by country, dark theme and mobile version](docs/demo.gif)
 
-## Estrutura
+The interface is in Portuguese. Features:
 
-| Arquivo | Papel |
+- **Live:** votes, % of polling stations counted and each candidate's chance of winning.
+- **Timeline:** how the left and right candidates evolve as the count advances (valid votes, win probability or final projection), with 2026 overlaid on 2022 and 2018. The x-axis can be % of stations counted or time of day.
+- **Regions:** where each candidate gained or lost ground compared with the first round, on a state tile map and in tables by region and state, for 2026, 2022 and 2018.
+- **Count, votes and turnout by region:** % of stations counted in each region compared with the 2022 runoff at the same time of day; left × right in each region against the first round and 2022 (who is gaining, who is losing); and abstention in the stations counted so far, with the change from the 2026 first round and from 2022 (same weight per state), by region and state. Includes an estimate of total abstentions and the history of every round since 2018.
+- **What each candidate needs to win:** weighted average of runoff polls, with more weight on recent ones. Shows how much the trailing candidate needs to gain in each region and the minimum the leader must hold. During the count, it also shows what share of the remaining votes each one needs.
+- **Overseas votes by country:** per-station ballot box reports, published by the TSE as polls close abroad. Compares the first and second round in the same stations and puts 2018, 2022 and 2026 side by side, with votes gained and lost by country and city.
+- **Live chat:** real-time messages (SSE), a filter against profanity, hate speech, threats and links, and an informal "who did you vote for" poll (🔴 Lula, 🔵 Flávio, ⚪ Blank/Null).
+- **Latest news:** headlines from g1, Folha, Estadão, Poder360, Agência Brasil and Google News, filtered for the election and ranked by relevance. They sit in a left column on desktop and in a compact section on mobile.
+- **Automatic narrator:** a clearly labeled bot (🤖, "automático" badge) posts count milestones to the chat (compared with 2022), lead changes nationally and in large states, sharp swings in win probability, the official result and major news. It does not vote in the poll. To turn it off: `NARRADOR=off`.
+- **Prediction markets:** public prices from Kalshi (`KXBRPRES-26`) and Polymarket (`brazil-presidential-election`), normalized to a two-way race and compared with the dashboard's model through the night. Where the ISP blocks these domains (some do in Brazil), they show as unavailable; the dashboard does not get around blocks.
+- **Responsive:** on mobile, the candidates sit side by side, the chart and map respond to touch, tables scroll sideways with a sticky first column, and the chat and news adapt.
+
+No dependencies: all you need is Node 20 or newer.
+
+```bash
+npm start          # collector + server at http://localhost:3000
+npm run collect    # collector only
+npm run serve      # server only (reads what the collector wrote)
+npm test           # chat filter tests
+```
+
+To deploy (Fly.io recommended), see **[DEPLOY.md](DEPLOY.md)** (in Portuguese).
+
+## Structure
+
+| File | Role |
 |---|---|
-| `server/index.js` | HTTP: arquivos estáticos, rotas, cabeçalhos de segurança, gzip/ETag, cache, limites |
-| `server/api.js` | cálculos das rotas (ao vivo, linha do tempo, regiões, abstenção, exterior, caminho, notícias) |
-| `server/collector.js` · `exterior.js` · `noticias.js` · `mercados.js` | coletores: TSE, boletins do exterior, notícias, mercados de previsão |
-| `server/narrador.js` | narrador automático do chat |
-| `server/chat.js` · `moderacao.js` | chat (SSE), enquete, moderação automática e manual |
-| `server/config.js` · `ip.js` · `fsutil.js` | caminhos e variáveis de ambiente, IP real e limites, gravação atômica |
-| `shared/model.js` · `caminho.js` | modelo de chance de vitória e cenários das pesquisas |
-| `public/` | página: `app.js` (painel), `chat.js`, `noticias.js`, `style.css` |
+| `server/index.js` | HTTP: static files, routes, security headers, gzip/ETag, cache, limits |
+| `server/api.js` | route computations (live, timeline, regions, turnout, overseas, path to victory, news) |
+| `server/collector.js` · `exterior.js` · `noticias.js` · `mercados.js` | collectors: TSE, overseas ballot box reports, news, prediction markets |
+| `server/narrador.js` | automatic chat narrator |
+| `server/chat.js` · `moderacao.js` | chat (SSE), poll, automatic and manual moderation |
+| `server/config.js` · `ip.js` · `fsutil.js` | paths and environment variables, real client IP and limits, atomic writes |
+| `shared/model.js` · `caminho.js` | win probability model and poll scenarios |
+| `public/` | page: `app.js` (dashboard), `chat.js`, `noticias.js`, `style.css` |
 
-## Fonte dos dados
+## Data sources
 
-| Dado | Origem |
+| Data | Source |
 |---|---|
-| Apuração 2026 (ao vivo) | `https://resultados.tse.jus.br/oficial/ele2026/6258/dados/<uf>/<uf>-c0001-e006258-u.json` |
-| 1º turno 2026 | mesmo caminho, eleição `6257` (em cache em `data/ref/t1-2026.json`) |
-| Histórico 2022/2018 | boletins de urna e votação por município/zona do Portal de Dados Abertos do TSE |
+| 2026 count (live) | `https://resultados.tse.jus.br/oficial/ele2026/6258/dados/<uf>/<uf>-c0001-e006258-u.json` |
+| 2026 first round | same path, election `6257` (cached in `data/ref/t1-2026.json`) |
+| 2022/2018 history | ballot box reports and votes by municipality/zone from the TSE Open Data Portal |
 
-O coletor consulta o Brasil e as 28 UFs (incluindo o exterior, `zz`) a cada 30 s. Usa `If-None-Match`, então quando nada mudou o TSE responde 304. Cada mudança é gravada em `data/live/snapshots.jsonl`. O TSE só publica o estado atual, sem histórico: **a linha do tempo de 2026 só tem os pontos coletados enquanto o coletor esteve rodando.**
+The collector polls Brazil and all 28 units (27 states plus overseas, `zz`) every 30 s. It sends `If-None-Match`, so the TSE answers 304 when nothing changed. Every change is appended to `data/live/snapshots.jsonl`. The TSE only publishes the current state, with no history: **the 2026 timeline only has the points collected while the collector was running.**
 
-### Histórico (`data/history/*.json`)
+### History (`data/history/*.json`)
 
-Gerado com `python -I scripts/build_history.py`, que baixa uns 200 MB em `data/raw/`.
+Built with `python -I scripts/build_history.py`, which downloads about 200 MB into `data/raw/`.
 
-- **2022:** cada seção entra na linha do tempo no horário real de recebimento do boletim (`DT_BU_RECEBIDO`). A curva bate com o log oficial de totalização do TSE (virada de Lula com ~67–68% das seções).
-- **2018:** os boletins não têm horário de recebimento. O horário é estimado como o encerramento da urna em 2018 somado ao atraso que a mesma seção teve em 2022, então a ordem de chegada segue a logística de 2022. Em 2018 a divulgação ficou embargada até as 19h.
+- **2022:** each station enters the timeline at the actual time its ballot box report was received (`DT_BU_RECEBIDO`). The curve matches the TSE's official totalization log (Lula takes the lead at ~67–68% of stations).
+- **2018:** the reports have no reception time. It is estimated as the 2018 closing time of the voting machine plus the delay the same station had in 2022, so the arrival order follows 2022 logistics. In 2018, results were embargoed until 7 p.m.
 
-## Modelo de chance de vitória (`shared/model.js`)
+## Win probability model (`shared/model.js`)
 
-Para cada UF, o que falta apurar é projetado misturando a fatia já apurada na UF com o 1º turno da UF (disputa a dois), corrigido pelo desvio nacional observado. Há ainda um ajuste de +1,5 p.p. para a esquerda no que falta apurar: em 2018 e 2022 as seções apuradas por último pendiam à esquerda. A incerteza tem um componente nacional e outro por UF, e os dois encolhem conforme a apuração avança. P(vitória) sai de uma aproximação normal da margem final.
+For each state, the uncounted vote is projected by blending the share already counted in that state with the state's first-round result (two-way), corrected by the observed national swing. There is also a +1.5 p.p. adjustment toward the left in the uncounted vote: in 2018 and 2022, the stations counted last leaned left. Uncertainty has a national and a per-state component, and both shrink as the count advances. P(win) comes from a normal approximation of the final margin.
 
-É um modelo heurístico, não uma previsão oficial. O mesmo modelo roda sobre o histórico, então as curvas de 2022 e 2018 mostram como ele teria se comportado naquelas noites:
+It is a heuristic model, not an official forecast. The same model runs over the historical data, so the 2022 and 2018 curves show how it would have behaved on those nights:
 
 ```bash
-node scripts/calibrate.js 0 0.01 0.015 0.02   # erro da projeção por marco, para cada valor de lateDrift
+node scripts/calibrate.js 0 0.01 0.015 0.02   # projection error by milestone, for each lateDrift value
 ```
 
-## Outros dados
+## Other data
 
-| Arquivo | Conteúdo | Como gerar |
+| File | Contents | How to build |
 |---|---|---|
-| `data/history/abstencao.json` | abstenção por UF e turno, 2018 e 2022 | `python -I scripts/build_abstencao.py` (depois de `build_history.py`) |
-| `data/history/exterior.json` | exterior por cidade e país, 2018 e 2022, dois turnos | `python -I scripts/build_exterior.py` |
-| `data/polls/2026-t2.json` | pesquisas do 2º turno 2026 (nacional e regiões), com fontes | coletadas manualmente de notícias e da Wikipedia |
-| `data/ref/exterior-3220.json`, `data/live/exterior-3221.json` | boletins de urna do exterior, 1º e 2º turno 2026 | o coletor gera |
-| `data/chat/` | mensagens e votos do chat | o servidor gera |
+| `data/history/abstencao.json` | abstention by state and round, 2018 and 2022 | `python -I scripts/build_abstencao.py` (after `build_history.py`) |
+| `data/history/exterior.json` | overseas votes by city and country, 2018 and 2022, both rounds | `python -I scripts/build_exterior.py` |
+| `data/polls/2026-t2.json` | 2026 runoff polls (national and regional), with sources | collected by hand from news and Wikipedia |
+| `data/ref/exterior-3220.json`, `data/live/exterior-3221.json` | overseas ballot box reports, 2026 first and second round | written by the collector |
+| `data/chat/` | chat messages and poll votes | written by the server |
 
-## Chat e moderação
+## Chat and moderation
 
-O filtro fica em `server/moderacao.js` e é baseado em listas e padrões. Antes de checar, ele normaliza acentos, leetspeak, homóglifos, caracteres invisíveis, letras repetidas e palavras quebradas em pedaços. Ele bloqueia a mensagem inteira em vez de mascarar. Os casos de teste rodam com `npm test`. Nenhum filtro desse tipo é infalível; para o que escapar, existe a moderação manual com `ADMIN_TOKEN` (ver [DEPLOY.md](DEPLOY.md)).
+The filter lives in `server/moderacao.js` and is built on word lists and patterns. Before checking, it normalizes accents, leetspeak, homoglyphs, invisible characters, repeated letters and words split into pieces. It blocks the whole message instead of masking it. Test cases run with `npm test`. No filter like this is foolproof; for whatever slips through, there is manual moderation with `ADMIN_TOKEN` (see [DEPLOY.md](DEPLOY.md)).
 
-Limites:
-- 1 mensagem a cada 30 s por aparelho e 6 a cada 30 s por IP
-- até 280 caracteres por mensagem e 20 no apelido
-- enquete com um voto por aparelho (pode ser trocado) e até 5 aparelhos por IP
+Limits:
+- 1 message every 30 s per device and 6 every 30 s per IP
+- up to 280 characters per message and 20 per nickname
+- one poll vote per device (can be changed) and up to 5 devices per IP
 
-**Atrás de um proxy ou túnel**, defina `CLIENT_IP_HEADER` (`fly-client-ip` no Fly, `x-forwarded-for` no Railway, `cf-connecting-ip` no Cloudflare Tunnel) para que os limites usem o IP real de cada visitante. No Fly e no Railway isso é detectado automaticamente.
+**Behind a proxy or tunnel**, set `CLIENT_IP_HEADER` (`fly-client-ip` on Fly, `x-forwarded-for` on Railway, `cf-connecting-ip` on Cloudflare Tunnel) so limits use each visitor's real IP. On Fly and Railway this is detected automatically.
 
-## Testar sem esperar o TSE
+## Testing without waiting for the TSE
 
 ```bash
-node scripts/simulate.js 80 0.6                              # apuração fictícia até 60%, em data/sim/
+node scripts/simulate.js 80 0.6                              # simulated count up to 60%, in data/sim/
 LIVE_DIR=data/sim PORT=3001 node server/index.js --no-collect
 ```
